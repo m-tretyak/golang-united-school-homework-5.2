@@ -49,6 +49,9 @@ func (cache *Cache) Put(key, value string) {
 }
 
 func (cache *Cache) Keys() (result []string) {
+	cache.locker.Lock()
+	defer cache.locker.Unlock()
+
 	result = make([]string, 0, len(cache.items))
 	now := time.Now()
 
